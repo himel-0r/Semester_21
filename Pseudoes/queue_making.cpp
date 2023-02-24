@@ -42,6 +42,7 @@ public:
     int front();
     bool isEmpty();
     bool isFull();
+    void display();
 };
 
 QueueLL::QueueLL()
@@ -72,7 +73,10 @@ void QueueLL::enqueue(int num)
     if (this->count == 0)
     {
         this->start = newNode;
+        this->end = newNode;
     }
+
+    this->end->next = newNode;
 
     this->end = newNode;
 
@@ -114,4 +118,63 @@ bool QueueLL::isEmpty()
 bool QueueLL::isFull()
 {
     return (this->count == this->limit);
+}
+
+void QueueLL::display()
+{
+    Node *curr = this->start;
+
+    cout << "Display... ";
+
+    if (curr == NULL)
+    {
+        cout << endl;
+        return;
+    }
+
+    if (this->count == 1) {
+        cout << this->start->data << endl;
+        return;
+    }
+
+    while (curr != this->end->next)
+    {
+        cout << curr->data << " ";
+        curr = curr->next;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    QueueLL q(5);
+
+    cout << "isempty " << q.isEmpty() << endl;
+
+    q.display();
+    q.dequeue();
+
+    q.enqueue(5);
+    q.display();
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.display();
+
+    cout << "isfull " << q.isFull() << endl;
+    cout << "isempty " << q.isEmpty() << endl;
+
+    cout << q.front() << endl;
+
+    q.dequeue();
+    q.display();
+    cout << "isfull " << q.isFull() << endl;
+    cout << "isempty " << q.isEmpty() << endl;
+    q.dequeue();
+    q.display();
+    cout << "isfull " << q.isFull() << endl;
+    cout << "isempty " << q.isEmpty() << endl;
+    q.dequeue();
+    
+    q.display();
 }
