@@ -1,0 +1,11 @@
+Implementation of queue using circular Array
+
+Checking if this queue is empty: 1
+Display... 10 
+Display... 10 20 
+Checking if this queue is empty: 0
+Display... 10 20 30 
+This is front: 10
+This value is popped: 10
+Now calling display() function: 
+Display... 20 30 
