@@ -227,7 +227,7 @@ int main()
 
     for (int kk = 0; kk < k; kk++)
     {
-        cin >> n; // number of elements in this list
+        cin >> n; // number of elements in this list; 
         cout << "abd  " << n << endl;
 
         for (int i = 0; i < n; i++)
