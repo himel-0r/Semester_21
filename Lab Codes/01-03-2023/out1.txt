@@ -1,0 +1,9 @@
+Implementation of queue using LinkedLists
+
+Display... 10
+Display... 10 20 
+Display... 10 20 30 
+This is front: 10
+This value is popped: 10
+Now calling display() function: 
+Display... 20 30 
