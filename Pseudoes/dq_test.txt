@@ -1,0 +1,9 @@
+Start
+
+Displaying...   10 20 
+Displaying...   10 20 30 
+Displaying...   5 10 20 30 
+Displaying...   200 101 5 10 20 30 300 400 
+Displaying...   NOTHING TO DISPLAY!!
+Displaying...   10 20 
+Displaying...   30 
