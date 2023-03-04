@@ -7,3 +7,12 @@ Displaying...   200 101 5 10 20 30 300 400
 Displaying...   NOTHING TO DISPLAY!!
 Displaying...   10 20 
 Displaying...   30 
+1
+0
+0
+Displaying...   10 20 
+2
+10
+20
+Displaying...   10 
+Displaying...   NOTHING TO DISPLAY!!

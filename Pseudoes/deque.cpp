@@ -269,4 +269,24 @@ int main()
     dq.push_front(20);
     dq.push_front(30);
     dq.display();
+
+    dq.clear();
+    cout << dq.empty() << endl;
+    cout << dq.isFull() << endl;
+
+    cout << dq.size() << endl;
+
+    dq.push_back(10);
+    dq.push_back(20);
+    dq.display();
+
+    cout << dq.size() << endl;
+
+    cout << dq.front() << endl;
+    cout << dq.back() << endl;
+
+    dq.pop_back();
+    dq.display();
+    dq.pop_front();
+    dq.display();
 }
