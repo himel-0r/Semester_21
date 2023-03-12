@@ -6,38 +6,36 @@ typedef long long ll;
 // Merge sort started
 vi merge(vi left, vi right)
 {
+    int i = 0, j = 0;
+
+    vi merged;
+
+    while (i < left.size() and j < right.size())
     {
-        int i = 0, j = 0;
-
-        vi merged;
-
-        while (i < left.size() and j < right.size())
-        {
-            if (left[i] <= right[j])
-            {
-                merged.push_back(left[i]);
-                i++;
-            }
-            else
-            {
-                merged.push_back(right[j]);
-                j++;
-            }
-        }
-
-        while (i < left.size())
+        if (left[i] <= right[j])
         {
             merged.push_back(left[i]);
             i++;
         }
-
-        while (j < right.size())
+        else
         {
             merged.push_back(right[j]);
             j++;
         }
-        return merged;
     }
+
+    while (i < left.size())
+    {
+        merged.push_back(left[i]);
+        i++;
+    }
+
+    while (j < right.size())
+    {
+        merged.push_back(right[j]);
+        j++;
+    }
+    return merged;
 }
 
 vi mergesort(vi v)
@@ -134,40 +132,40 @@ vi countsort(vi a, int n)
 } // Counting sort ended
 
 // Counting sort for Radix sort
-void cnt_rad (vi a, int n, int exp)
+void cnt_rad(vi a, int n, int exp)
 {
     vi ans(n);
     int i, cnt[10] = {0};
 
-    for (int i=0; i<n; i++) 
-        cnt [(a[i] / exp)%10]++;
-    
-    for (int i=1; i<10; i++)
-        cnt[i] += cnt[i-1];
+    for (int i = 0; i < n; i++)
+        cnt[(a[i] / exp) % 10]++;
 
-    for (int i=n-1; i>=0; i--) {
-        ans[cnt[(a[i]/exp)%10]-1] = a[i];
-        cnt[(a[i]/exp)%10]--;
+    for (int i = 1; i < 10; i++)
+        cnt[i] += cnt[i - 1];
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        ans[cnt[(a[i] / exp) % 10] - 1] = a[i];
+        cnt[(a[i] / exp) % 10]--;
     }
 
-    for (int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
         a[i] = ans[i];
 
     return;
 }
 
-void rad_sort (vi a, int n)
+void rad_sort(vi a, int n)
 {
     int m = a[0];
 
-    for (int i=1; i<a.size(); i++)
-        if (a[i] > m) m = a[i];
+    for (int i = 1; i < a.size(); i++)
+        if (a[i] > m)
+            m = a[i];
 
-    for (int exp = 1; m/exp > 1; exp *= 10)
-        cnt_rad (a, n, exp);
+    for (int exp = 1; m / exp > 1; exp *= 10)
+        cnt_rad(a, n, exp);
 } // Radix sort ended
-
-
 
 int main()
 {
