@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
     // freopen ("input.txt", "r", stdin);
-    freopen ("in_post.txt", "w", stdout);
+    freopen ("in_pre.txt", "w", stdout);
 
     string s = "(((1+2)*3)-8)";
     string t = "";
@@ -19,7 +19,7 @@ int main()
         else if (x == '+' || x == '-' || x == '*' || x == '/') {
             if (x == '*' || x == '/') {
                 while (st.top() == '*' || st.top()=='/') {
-                    t += st.top();
+                    t = st.top() + t;
                     st.pop();
                 }
                 st.push(x);
@@ -31,7 +31,7 @@ int main()
             t += x;
         else if (x == ')') {
             while (st.top() != '(') {
-                t += st.top();
+                t = st.top() + t;
                 st.pop();
             }
             st.pop();
