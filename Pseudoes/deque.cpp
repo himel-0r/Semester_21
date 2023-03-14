@@ -57,8 +57,8 @@ public:
 
 Dequeue::Dequeue()
 {
-    this->front_node = this->back_node = NULL;
-    this->back_node = this->front_node = NULL;
+    this->front_node = NULL; 
+    this->back_node = NULL;
     this->count = 0;
     this->limit = INT_MAX;
     // this->front_node->next = this->back_node;
@@ -67,123 +67,96 @@ Dequeue::Dequeue()
 
 Dequeue::Dequeue(int sz)
 {
-    this->front_node = this->back_node = NULL;
-    this->back_node = this->front_node = NULL;
+    this->front_node = NULL; 
+    this->back_node = NULL;
     this->count = 0;
     this->limit = sz;
-    // this->front_node->next = this->back_node;
-    // this->back_node->prev = this->front_node;
 }
 
 void Dequeue::push_front(int n)
 {
-    if (this->empty())
-    {
-        DQNode *newNode = new DQNode(n, NULL, NULL);
+    DQNode* newnode = new DQNode (n, NULL, this->front_node);
 
-        this->front_node = newNode;
-        this->back_node = newNode;
-
-        (this->count)++;
-        return;
+    if (this->front_node) {
+        this->front_node->prev = newnode;
     }
+    this->front_node = newnode;
 
-    if (this->count == 1) {
-        DQNode *newNode = new DQNode (n);
-
-        this->back_node->prev = newNode;
-        this->front_node = newNode;
-
-        (this->count)++;
-        return;
+    if (!this->back_node) {
+        this->back_node = this->front_node;
     }
 
     (this->count)++;
 
-    if (this->isFull())
-    {
-        cout << "DEQUEUE OVERLOADED!!\n";
-        return;
-    }
-
-    DQNode *newNode = new DQNode(n, NULL, this->front_node);
-
-    this->front_node = newNode;
+    if (this->isFull()) 
+        cout << "DEQUE overloaded!!\n";
 }
 
 void Dequeue::push_back(int n)
 {
-    if (this->empty())
-    {
-        DQNode *newNode = new DQNode(n, NULL, NULL);
+    DQNode* newnode = new DQNode(n, this->back_node, NULL);
 
-        this->front_node = newNode;
-        this->back_node = newNode;
-
-        (this->count)++;
-        return;
+    if (this->back_node) {
+        this->back_node->next = newnode;
     }
-
-    if (this->count == 1) {
-        DQNode *newNode = new DQNode (n);
-
-        this->front_node->next = newNode;
-        newNode->prev = this->front_node;
-        this->back_node = newNode;
-
-        (this->count)++;
-        return;
+    this->back_node = newnode;
+    if (!(this->front_node)) {
+        this->front_node = this->back_node;
     }
 
     (this->count)++;
 
-    if (this->isFull())
-    {
-        cout << "DEQUEUE OVERLOADED!!\n";
-        return;
-    }
-
-    DQNode *newNode = new DQNode(n);
-    newNode->prev = this->back_node;
-    this->back_node->next = newNode;
-    newNode->next = NULL;
-    this->back_node = newNode;
+    if (this->isFull()) 
+        cout << "DEQUE overloaded!!\n";
 }
 
 void Dequeue::pop_front()
 {
-    if (this->empty())
-    {
-        cout << "NOTHING TO POP!!\n";
+    if (!(this->front_node)) {
+        return;
+    }
+
+    (this->count)--;
+
+    if (!(this->front_node->next)) {
+        this->front_node = NULL;
+        this->back_node = NULL;
         return;
     }
 
     this->front_node = this->front_node->next;
-
-    (this->count)--;
+    this->front_node->prev = NULL;
 }
 
 void Dequeue::pop_back()
 {
-    if (this->empty())
-    {
-        cout << "NOTHING TO POP!!\n";
+    if (!(this->front_node))
+        return;
+
+    (this->count)--;
+
+    if (!(this->front_node->next)) {
+        this->front_node = NULL;
+        this->back_node = NULL;
         return;
     }
 
     this->back_node = this->back_node->prev;
-
-    (this->count)--;
+    this->back_node->next = NULL;
 }
 
 int Dequeue::front()
 {
-    return (this->front_node->data);
+    if (this->front_node)
+        return this->front_node->data;
+    return INT_MIN;
 }
 
 int Dequeue::back()
 {
-    return (this->back_node->data);
+    if (this->back_node)
+        return this->back_node->data;
+    return INT_MIN;
 }
 
 bool Dequeue::empty()
@@ -205,23 +178,11 @@ void Dequeue::display()
 {
     cout << "Displaying...   ";
 
-    if (this->count == 0) {
-        cout << "NOTHING TO DISPLAY!!\n";
-        return;
-    }
+    DQNode* current = this->front_node;
 
-    DQNode *curr = this->front_node;
-
-    while (curr != this->back_node->next)
-    {
-        cout << curr->data << " ";
-
-        // if (curr == this->back_node) {
-        //     cout << this->back_node->data << " ";
-        //     break;
-        // }
-
-        curr = curr->next;
+    while (current) {
+        cout << current->data << " ";
+        current = current->next;
     }
 
     cout << "\n";
@@ -241,52 +202,27 @@ int main()
 
     Dequeue dq(10000);
 
-    dq.push_front(10);
-    dq.push_back(20);
-    dq.display();
-    dq.push_back(30);
-    dq.display();
-
-    dq.push_front(5);
-    dq.display();
-
-    dq.push_front(101);
-    dq.push_front(200);
-
-    dq.push_back(300);
-    dq.push_back(400);
-    dq.display();
-
-    dq.clear();
-    dq.display();
-
-    dq.push_back(10);
-    dq.push_back(20);
-    dq.display();
-    
-    dq.clear();
-
-    dq.push_front(20);
-    dq.push_front(30);
-    dq.display();
-
-    dq.clear();
     cout << dq.empty() << endl;
-    cout << dq.isFull() << endl;
-
-    cout << dq.size() << endl;
 
     dq.push_back(10);
-    dq.push_back(20);
     dq.display();
-
     cout << dq.size() << endl;
-
-    cout << dq.front() << endl;
-    cout << dq.back() << endl;
-
+    // cout << dq.back() << endl;
+    // cout << dq.front() << endl;
     dq.pop_back();
+    dq.display();
+    cout << dq.size() << endl;
+    dq.push_front(20);
+    dq.display();
+    cout << dq.size() << endl;
+    dq.push_front(30);
     dq.display();
     dq.pop_front();
     dq.display();
+    cout << dq.size() << endl;
+    dq.pop_front();
+    dq.display();
+
+    cout << dq.empty() << endl;
+    cout << dq.size() << endl;
 }
