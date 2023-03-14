@@ -126,5 +126,3 @@ class BinarySearchTree:
         if node.right:
             self._postorder(node.right)
         print(node.val)
-            
-        
