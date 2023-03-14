@@ -46,3 +46,9 @@ BinarySearchTree::BinarySearchTree()
 {
     this->root = NULL;
 }
+
+void BinarySearchTree::insert_node(int num)
+{
+    Treenode* newnode = new Treenode(num);
+    
+}
