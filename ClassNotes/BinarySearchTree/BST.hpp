@@ -1,3 +1,6 @@
+#ifndef BST_HPP
+#define BST_HPP
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -252,26 +255,4 @@ void BinarySearchTree::postorder(Treenode* node)
     cout << (node->data) << " ";
 }
 
-int main()
-{
-    BinarySearchTree bst;
-
-    bst.insert_number(10);
-    bst.insert_number(5);
-    bst.insert_number(13);
-    bst.insert_number(7);
-    bst.insert_number(23);
-    bst.insert_number(20);
-    bst.insert_number(15);
-    bst.insert_number(3);
-    bst.insert_number(11);
-    bst.insert_number(25);
-
-    bst.inorder();
-    bst.preorder();
-    bst.postorder();
-
-    bst.delete_node(10);
-
-    bst.preorder();
-}
+#endif
