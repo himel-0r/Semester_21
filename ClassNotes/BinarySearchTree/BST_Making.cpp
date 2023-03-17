@@ -1,15 +1,16 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Treenode {
+class Treenode
+{
 public:
     int data;
-    Treenode* left;
-    Treenode* right;
-    Treenode* parent;
+    Treenode *left;
+    Treenode *right;
+    Treenode *parent;
 
-    Treenode (int num);
-    Treenode (int num, Treenode* par);
+    Treenode(int num);
+    Treenode(int num, Treenode *par);
 };
 
 Treenode::Treenode(int num)
@@ -20,7 +21,7 @@ Treenode::Treenode(int num)
     this->parent = NULL;
 }
 
-Treenode::Treenode(int num, Treenode* par)
+Treenode::Treenode(int num, Treenode *par)
 {
     this->data = data;
     this->left = NULL;
@@ -28,18 +29,29 @@ Treenode::Treenode(int num, Treenode* par)
     this->parent = par;
 }
 
-class BinarySearchTree {
+class BinarySearchTree
+{
 private:
-    Treenode* root;
+    Treenode *root;
 
 public:
     BinarySearchTree();
-    void in_order();
-    void pre_order();
-    void post_order();
-    Treenode* search_node (int num);
-    void insert_node (int num);
-    void delete_node (int num);
+    void insert_number1(int n);
+    void insert_number2(Treenode *newnode, Treenode *node);
+    bool search_node1(int num);
+    bool search_node2(int num, Treenode *node);
+    Treenode *findPosition(int num);
+    Treenode *findPosition2(int num, Treenode *node);
+    Treenode *find_successor(Treenode *node);
+    Treenode *find_predecessor(Treenode *node);
+    Treenode *delete_node(int num);
+    Treenode *delete_node2(int num, Treenode *node);
+    void preorder();
+    void preorder(Treenode* node);
+    void inorder();
+    void inorder(Treenode* node);
+    void postorder();
+    void postorder(Treenode* node);
 };
 
 BinarySearchTree::BinarySearchTree()
@@ -47,8 +59,195 @@ BinarySearchTree::BinarySearchTree()
     this->root = NULL;
 }
 
-void BinarySearchTree::insert_node(int num)
+void BinarySearchTree::insert_number1(int num)
 {
-    Treenode* newnode = new Treenode(num);
+    Treenode *newnode = new Treenode(num);
+
+    if (this->root == NULL)
+    {
+        this->root = newnode;
+    }
+    else
+    {
+        this->insert_number2(newnode, this->root);
+    }
+}
+
+void BinarySearchTree::insert_number2(Treenode *newnode, Treenode *node)
+{
+    if (newnode->data < node->data)
+    {
+        if (node->left)
+        {
+            this->insert_number2(newnode, node->left);
+        }
+        else
+        {
+            node->left = newnode;
+        }
+    }
+    else
+    {
+        if (node->right)
+        {
+            this->insert_number2(newnode, node->right);
+        }
+        else
+        {
+            node->right = newnode;
+        }
+    }
+}
+
+bool BinarySearchTree::search_node1(int num)
+{
+    return this->search_node2(num, this->root);
+}
+
+bool BinarySearchTree::search_node2(int num, Treenode *node)
+{
+    if (!node)
+    {
+        return false;
+    }
+    else if (node->data == num)
+    {
+        return true;
+    }
+    else if (num < node->data)
+    {
+        return this->search_node2(num, node->left);
+    }
+    else
+    {
+        return this->search_node2(num, node->right);
+    }
+}
+
+Treenode *BinarySearchTree::findPosition(int num)
+{
+    if (this->root->data == num)
+        return this->root;
+    else
+        return this->findPosition2(num, this->root);
+}
+
+Treenode *BinarySearchTree::findPosition2(int num, Treenode *node)
+{
+    if (!node)
+        return NULL;
+    else if (node->data == num)
+        return node;
+    else if (num < node->data)
+        return this->findPosition2(num, node->left);
+    else
+        return this->findPosition2(num, node->right);
+}
+
+Treenode *BinarySearchTree::find_successor(Treenode *node)
+{
+    while (node->left)
+        node = node->left;
+    return node;
+}
+
+Treenode *BinarySearchTree::find_predecessor(Treenode *node)
+{
+    while (node->right)
+        node = node->right;
+    return node;
+}
+
+Treenode *BinarySearchTree::delete_node(int num)
+{
+    this->root = this->delete_node2(num, this->root);
+}
+
+Treenode *BinarySearchTree::delete_node2(int num, Treenode *node)
+{
+    if (!node)
+        return node;
+
+    if (num < node->data)
+        node->left = this->delete_node2(num, node->left);
+    else if (num > node->data)
+        node->right = this->delete_node2(num, node->right);
+    else
+    {
+        // Case 1 : No children
+        if (!(node->left) and !(node->right))
+            node = NULL;
+
+        // Case 2 : One Child
+        else if (!(node->right))
+            node = node->right;
+        else if (!(node->left))
+            node = node->left;
+
+        // Case 3 : Two children
+        else
+        {
+            Treenode *successor = this->find_successor(node->right);
+            node->data = successor->data;
+            node->right = this->delete_node2(successor->data, node->right);
+
+            /*
+            Treenode* predecessor = this->find_predecessor(node->left);
+            node->data = predecessor->data;
+            node->left = this->delete_node2(predecessor->data, node->left);
+            */
+        }
+    }
+    return node;
+}
+
+void BinarySearchTree::preorder()
+{
+    this->preorder(this->root);
+    cout << endl;
+}
+
+void BinarySearchTree::preorder(Treenode* node)
+{
+    cout << node->data << " ";
+
+    if (node->left)
+        this->preorder(node->left);
     
+    if (node->right)
+        this->preorder(node->right);
+}
+
+void BinarySearchTree::inorder()
+{
+    this->inorder(this->root);
+    cout << endl;
+}
+
+void BinarySearchTree::inorder(Treenode* node)
+{
+    if (node->left)
+        this->inorder(node->left);
+    
+    cout << node->data << " ";
+
+    if (node->right)
+        this->inorder(node->right);
+}
+
+void BinarySearchTree::postorder()
+{
+    this->postorder(this->root);
+    cout << endl;
+}
+
+void BinarySearchTree::postorder(Treenode* node)
+{
+    if (node->left)
+        this->postorder(node->left);
+
+    if (node->right)
+        this->postorder(node->right);
+
+    cout << node->data << " ";
 }
