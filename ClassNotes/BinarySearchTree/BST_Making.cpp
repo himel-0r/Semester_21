@@ -61,6 +61,7 @@ public:
     int height();
     int minimum();
     int maximum();
+    int find_level(int num);
 };
 
 BinarySearchTree::BinarySearchTree()
@@ -363,11 +364,11 @@ int main()
     bst.insert_number(7);
     bst.insert_number(6);
     bst.insert_number(8);
-    bst.insert_number(3);
-    bst.insert_number(1);
-    bst.insert_number(2);
-    bst.insert_number(7);
-    bst.insert_number(10);
+    // bst.insert_number(3);
+    // bst.insert_number(1);
+    // bst.insert_number(2);
+    // bst.insert_number(7);
+    // bst.insert_number(10);
     // bst.insert_number(13);
 
     cout << "Height: " << bst.height() << endl;
@@ -376,7 +377,7 @@ int main()
     bst.preorder();
     bst.postorder();
 
-    bst.delete_node(10);
+    bst.delete_node(2);
 
     bst.preorder();
 }

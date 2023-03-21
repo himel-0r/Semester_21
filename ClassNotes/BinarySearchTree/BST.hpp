@@ -37,26 +37,33 @@ class BinarySearchTree
 private:
     Treenode *root;
 
+    Treenode *find_successor(Treenode *node);
+    Treenode *find_predecessor(Treenode *node);
+    void insert_number(Treenode *newnode, Treenode *node);
+    bool search_node(int num, Treenode *node);
+    Treenode *findPosition(int num, Treenode *node);
+    Treenode *delete_node(int num, Treenode *node);
+    void preorder(Treenode *node);
+    void inorder(Treenode *node);
+    void postorder(Treenode *node);
+    int height(Treenode *node);
+    int find_successor(Treenode *node, vector<int> v);
+    int find_predecessor(Treenode *node, vector<int> v);
+
 public:
     BinarySearchTree();
     void insert_number(int n);
-    void insert_number(Treenode *newnode, Treenode *node);
     bool search_node(int num);
-    bool search_node(int num, Treenode *node);
     Treenode *findPosition(int num);
-    Treenode *findPosition(int num, Treenode *node);
-    Treenode *find_successor(Treenode *node);
-    Treenode *find_predecessor(Treenode *node);
+    int find_successor(int num);
+    int find_predecessor(int num);
     Treenode *delete_node(int num);
-    Treenode *delete_node(int num, Treenode *node);
     void preorder();
-    void preorder(Treenode *node);
     void inorder();
-    void inorder(Treenode *node);
     void postorder();
-    void postorder(Treenode *node);
     int height();
-    int height(Treenode *node);
+    int minimum();
+    int maximum();
 };
 
 BinarySearchTree::BinarySearchTree()
@@ -262,20 +269,91 @@ int BinarySearchTree::height()
     return this->height(this->root);
 }
 
-int BinarySearchTree::height(Treenode *node) 
+int BinarySearchTree::height(Treenode *node)
 {
     int h = 0;
 
-    if (node) {
+    if (node)
+    {
         int l_height = height(node->left);
         int r_height = height(node->right);
 
-        int max_height = max (l_height, r_height);
+        int max_height = max(l_height, r_height);
 
         h = max_height + 1;
     }
 
     return h;
+}
+
+int BinarySearchTree::minimum() 
+{
+    Treenode *node = this->root;
+    
+    while (node->left) {
+        node = node->left;
+    }
+
+    return (node->data);
+}
+
+int BinarySearchTree::maximum()
+{
+    Treenode *node = this->root;
+
+    while (node->right) {
+        node = node->right;
+    }
+
+    return (node->data);
+}
+
+int BinarySearchTree::find_predecessor(int num)
+{
+    vector<int> v;
+    this->find_predecessor(this->root, v);
+
+    int lb = lower_bound(v.begin(), v.end(), num) - v.begin();
+
+    if (lb != 0)
+        return v[lb-1];
+    else 
+        return INT_MIN;
+}
+
+int BinarySearchTree::find_predecessor (Treenode *node, vector<int> v)
+{
+    if (node->left)
+        this->find_predecessor(node->left, v);
+
+    v.push_back(node->data);
+
+    if (node->right)
+        this->find_predecessor(node->right, v);
+}
+
+int BinarySearchTree::find_successor(int num)
+{
+    vector<int> v;
+    this->find_successor(this->root, v);
+
+    int ub = lower_bound(v.begin(), v.end(), num) - v.begin();
+
+    if (ub != v.size())
+        return v[ub];
+    else    
+        return INT_MAX;
+}
+
+int BinarySearchTree::find_successor(Treenode *node, vector<int> v)
+{
+    if (node->left) 
+        this->find_successor(node->left, v);
+
+    v.push_back(node->data);
+
+    if (node->right)
+        this->find_successor(node->right, v);
 }
 
 #endif
