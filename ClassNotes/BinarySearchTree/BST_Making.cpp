@@ -47,11 +47,13 @@ public:
     Treenode *delete_node(int num);
     Treenode *delete_node(int num, Treenode *node);
     void preorder();
-    void preorder(Treenode* node);
+    void preorder(Treenode *node);
     void inorder();
-    void inorder(Treenode* node);
+    void inorder(Treenode *node);
     void postorder();
-    void postorder(Treenode* node);
+    void postorder(Treenode *node);
+    int height();
+    int height(Treenode *node);
 };
 
 BinarySearchTree::BinarySearchTree()
@@ -75,7 +77,7 @@ void BinarySearchTree::insert_number(int num)
 
 void BinarySearchTree::insert_number(Treenode *newnode, Treenode *node)
 {
-    if (newnode->data < node->data)
+    if (newnode->data <= node->data)
     {
         if (node->left)
         {
@@ -207,13 +209,13 @@ void BinarySearchTree::preorder()
     cout << endl;
 }
 
-void BinarySearchTree::preorder(Treenode* node)
+void BinarySearchTree::preorder(Treenode *node)
 {
     cout << (node->data) << " ";
 
     if (node->left)
         this->preorder(node->left);
-    
+
     if (node->right)
         this->preorder(node->right);
 }
@@ -224,11 +226,11 @@ void BinarySearchTree::inorder()
     cout << endl;
 }
 
-void BinarySearchTree::inorder(Treenode* node)
+void BinarySearchTree::inorder(Treenode *node)
 {
     if (node->left)
         this->inorder(node->left);
-    
+
     cout << (node->data) << " ";
 
     if (node->right)
@@ -241,7 +243,7 @@ void BinarySearchTree::postorder()
     cout << endl;
 }
 
-void BinarySearchTree::postorder(Treenode* node)
+void BinarySearchTree::postorder(Treenode *node)
 {
     if (node->left)
         this->postorder(node->left);
@@ -252,20 +254,45 @@ void BinarySearchTree::postorder(Treenode* node)
     cout << (node->data) << " ";
 }
 
+int BinarySearchTree::height()
+{
+    return this->height(this->root);
+}
+
+int BinarySearchTree::height(Treenode *node) 
+{
+    int h = 0;
+
+    if (node) {
+        int l_height = height(node->left);
+        int r_height = height(node->right);
+
+        int max_height = max (l_height, r_height);
+
+        h = max_height + 1;
+    }
+
+    return h;
+}
+
 int main()
 {
     BinarySearchTree bst;
 
-    bst.insert_number(10);
-    bst.insert_number(5);
-    bst.insert_number(13);
+    freopen ("btsPractice.txt", "w", stdout);
+
+    bst.insert_number(2);
     bst.insert_number(7);
-    bst.insert_number(23);
-    bst.insert_number(20);
-    bst.insert_number(15);
+    bst.insert_number(6);
+    bst.insert_number(8);
     bst.insert_number(3);
-    bst.insert_number(11);
-    bst.insert_number(25);
+    bst.insert_number(1);
+    bst.insert_number(2);
+    bst.insert_number(7);
+    bst.insert_number(10);
+    // bst.insert_number(13);
+
+    cout << "Height: " << bst.height() << endl;
 
     bst.inorder();
     bst.preorder();
