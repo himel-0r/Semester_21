@@ -12,7 +12,21 @@ typedef long long ll;
 
 void solveit()
 {
-    
+    int n; cin >> n;
+    int a[n];
+
+
+    for (int i=0; i<n; i++) {
+        cin >> a[i];
+    }
+
+    int b = 0;
+
+    for (int i=0; i<n; i++) {
+        b ^= a[i];
+    }
+
+    cout << b << endl;
 }
 
 int32_t main()
