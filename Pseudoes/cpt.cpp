@@ -4,6 +4,7 @@ using namespace std;
 typedef long long ll;
 
 #define int ll
+#define pii pair<int, int>
 #define vi vector<ll>
 #define vvi vector<vi>
 #define all(vec) (vec).begin(), (vec).end()
@@ -12,21 +13,7 @@ typedef long long ll;
 
 void solveit()
 {
-    int n; cin >> n;
-    int a[n];
-
-
-    for (int i=0; i<n; i++) {
-        cin >> a[i];
-    }
-
-    int b = 0;
-
-    for (int i=0; i<n; i++) {
-        b ^= a[i];
-    }
-
-    cout << b << endl;
+    
 }
 
 int32_t main()

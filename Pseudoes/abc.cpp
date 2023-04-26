@@ -4,6 +4,7 @@ using namespace std;
 typedef long long ll;
 
 #define int ll
+#define pii pair<int, int>
 #define vi vector<ll>
 #define vvi vector<vi>
 #define all(vec) (vec).begin(), (vec).end()
@@ -12,16 +13,7 @@ typedef long long ll;
 
 void solveit()
 {
-    int n; cin >> n;
-    string s; cin >> s;
-
-    map <char, int> mp;
-
-    for (int i=0; i<n; i++) 
-        mp[s[i]]++;
-
-    cout << min ({mp['a'], mp['b'], mp['c'], mp['d'], mp['e']}) << sp;
-    cout << max ({mp['a'], mp['b'], mp['c'], mp['d'], mp['e']}) << endl;
+    
 }
 
 int32_t main()
@@ -34,7 +26,7 @@ int32_t main()
     // freopen ("out.txt", "w", stdout);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
 
     for (int tt = 1; tt <= t; tt++)
     {
