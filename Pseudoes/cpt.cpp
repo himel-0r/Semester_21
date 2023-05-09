@@ -13,6 +13,9 @@ typedef long long ll;
 
 void solveit()
 {
+    string s; cin >> s;
+    int n = s.size();
+
     
 }
 

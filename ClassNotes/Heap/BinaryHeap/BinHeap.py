@@ -1,4 +1,4 @@
-def insertMaHeap (heap, value):
+def insertMaxHeap (heap, value):
     heap.append(value)
     index = len(heap) - 1
     parent = index // 2
@@ -34,5 +34,23 @@ def _heapify_max(arr, i):
         arr[i], arr[largest] = arr[largest], arr[i]
         _heapify_max(arr, largest)
         
+def merge_heaps(arr1, arr2):
+    # copy elements from smaller array to the larger array
+    if len(arr1) >= len(arr2):
+        for i in arr2:
+            arr1.append(i)
+    else:
+        for i in arr1:
+            arr2.append(i)
+            
+    # heapify the whole array
+    if len(arr1) >= len(arr2):
+        heapify_max(arr1)
+    else:
+        heapify_max(arr2)
+        
+def peek(arr):
+    return arr[0]
+
 
     

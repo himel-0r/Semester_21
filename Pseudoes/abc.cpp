@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include<math.h>
 
 using namespace std;
 typedef long long ll;
@@ -13,7 +14,45 @@ typedef long long ll;
 
 void solveit()
 {
-    
+    double a, b, angle;
+    cin >> a >> b >> angle;
+
+    if ((int) a == 0 && (int) b == 0)
+    {
+        cout << 0 << sp << 0 << endl;
+        return;
+    }
+
+    if ((int) angle == 180)
+    {
+        cout << -a << sp << -b << endl;
+        return;
+    }
+
+    double ang = angle * M_PI / 180.0;
+
+    // cout << tan(M_PI/4.0) << endl;
+
+    double an = ((int) a == 0 ? M_PI/2.0 : atan(b/a));
+    an += ang;
+
+    double m = tan(an);
+
+    cout << m << endl;
+
+    double r = sqrt(a*a + b*b);
+
+    double xsq = r/(1+m*m);
+
+    // cout << xsq << endl;
+
+    xsq = sqrt(xsq);
+
+    double ysq = m * xsq;
+
+    cout << setprecision(20);
+
+    cout << xsq << sp << ysq << endl;
 }
 
 int32_t main()
@@ -26,7 +65,7 @@ int32_t main()
     // freopen ("out.txt", "w", stdout);
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     for (int tt = 1; tt <= t; tt++)
     {
