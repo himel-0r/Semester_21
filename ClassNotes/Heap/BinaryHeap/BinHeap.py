@@ -10,13 +10,13 @@ def insertMaxHeap (heap, value):
         
 def heapify_max (arr):
     # start from the last parent node and work backwords
-    for i in range(len(arr) // 2, 0, -1):
+    for i in range(len(arr) // 2 - 1, -1, -1):
         _heapify_max(arr, i)
         
 def _heapify_max(arr, i):
     #get indices of left and right children
-    left = 2 * i
-    right = 2 * i + 1
+    left = 2 * i + 1
+    right = 2 * i + 2
     
     # assume parent is the maximum value
     largest = i
@@ -52,5 +52,3 @@ def merge_heaps(arr1, arr2):
 def peek(arr):
     return arr[0]
 
-
-    
