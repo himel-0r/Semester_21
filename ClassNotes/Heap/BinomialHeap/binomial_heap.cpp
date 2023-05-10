@@ -127,3 +127,4 @@ BinomialNode* insert_node(BinomialNode* heap, int x)
     BinomialNode* newNode = new BinomialNode(x);
     return merge_heaps(heap, newNode);
 }
+

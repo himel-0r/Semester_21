@@ -1,75 +1,112 @@
-#include <bits/stdc++.h>
-#include<math.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
-typedef long long ll;
 
-#define int ll
-#define pii pair<int, int>
-#define vi vector<ll>
-#define vvi vector<vi>
-#define all(vec) (vec).begin(), (vec).end()
-#define endl '\n'
-#define sp " "
+// Define the structure of a Binomial Tree node
+struct BinomialNode {
+    int key;
+    int degree;
+    BinomialNode* parent;
+    BinomialNode* child;
+    BinomialNode* sibling;
+};
 
-void solveit()
-{
-    double a, b, angle;
-    cin >> a >> b >> angle;
-
-    if ((int) a == 0 && (int) b == 0)
-    {
-        cout << 0 << sp << 0 << endl;
-        return;
-    }
-
-    if ((int) angle == 180)
-    {
-        cout << -a << sp << -b << endl;
-        return;
-    }
-
-    double ang = angle * M_PI / 180.0;
-
-    // cout << tan(M_PI/4.0) << endl;
-
-    double an = ((int) a == 0 ? M_PI/2.0 : atan(b/a));
-    an += ang;
-
-    double m = tan(an);
-
-    cout << m << endl;
-
-    double r = sqrt(a*a + b*b);
-
-    double xsq = r/(1+m*m);
-
-    // cout << xsq << endl;
-
-    xsq = sqrt(xsq);
-
-    double ysq = m * xsq;
-
-    cout << setprecision(20);
-
-    cout << xsq << sp << ysq << endl;
+// Helper function to create a new node with a given key
+BinomialNode* newNode(int key) {
+    BinomialNode* node = new BinomialNode();
+    node->key = key;
+    node->degree = 0;
+    node->parent = nullptr;
+    node->child = nullptr;
+    node->sibling = nullptr;
+    return node;
 }
 
-int32_t main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    // freopen ("inp.txt", "r", stdin);
-    // freopen ("out.txt", "w", stdout);
-
-    int t = 1;
-    // cin >> t;
-
-    for (int tt = 1; tt <= t; tt++)
-    {
-        // cout << "Case " << tt << ": ";
-        solveit();
+// Function to merge two binomial trees of the same degree
+BinomialNode* merge_trees(BinomialNode* t1, BinomialNode* t2) {
+    if (t1->key > t2->key) {
+        swap(t1, t2);
     }
+    t2->parent = t1;
+    t2->sibling = t1->child;
+    t1->child = t2;
+    t1->degree++;
+    return t1;
 }
+
+// Function to merge two Binomial Heaps
+BinomialNode* merge_heaps(BinomialNode* h1, BinomialNode* h2) {
+    BinomialNode* head = nullptr;
+    BinomialNode* tail = nullptr;
+    BinomialNode* t1 = h1;
+    BinomialNode* t2 = h2;
+
+    while (t1 != nullptr && t2 != nullptr) {
+        if (t1->degree < t2->degree) {
+            if (tail == nullptr) {
+                head = t1;
+            } else {
+                tail->sibling = t1;
+            }
+            tail = t1;
+            t1 = t1->sibling;
+        } else {
+            if (tail == nullptr) {
+                head = t2;
+            } else {
+                tail->sibling = t2;
+            }
+            tail = t2;
+            t2 = t2->sibling;
+        }
+    }
+
+    while (t1 != nullptr) {
+        tail->sibling = t1;
+        tail = t1;
+        t1 = t1->sibling;
+    }
+
+    while (t2 != nullptr) {
+        tail->sibling = t2;
+        tail = t2;
+        t2 = t2->sibling;
+    }
+
+    BinomialNode* prev = nullptr;
+    BinomialNode* curr = head;
+    BinomialNode* next = head->sibling;
+
+    while (next != nullptr) {
+        if (curr->degree != next->degree ||
+            (next->sibling != nullptr && next->sibling->degree == curr->degree)) {
+            prev = curr;
+            curr = next;
+        } else {
+            if (curr->key <= next->key) {
+                curr->sibling = next->sibling;
+                curr = merge_trees(curr, next);
+            } else {
+                if (prev == nullptr) {
+                    head = next;
+                } else {
+                    prev->sibling = next;
+                }
+                curr = merge_trees(next, curr);
+            }
+        }
+        next = curr->sibling;
+    }
+
+    return head;
+}
+
+// Function to insert a node into a Binomial Heap
+BinomialNode* insert_node(BinomialNode* heap, int key) {
+    BinomialNode* node = newNode(key);
+    return merge_heaps(heap, node);
+}
+
+// Function to find the node with the minimum key in a Binomial Heap
