@@ -1,39 +1,17 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
 
-#define int ll
-#define pii pair<int, int>
-#define vi vector<ll>
-#define vvi vector<vi>
-#define all(vec) (vec).begin(), (vec).end()
-#define endl '\n'
-#define sp " "
-
-void solveit()
+int main()
 {
-    string s; cin >> s;
-    int n = s.size();
+    int n;
+    string s;
+    cin >> n >> s;
+    set<string> a;
 
-    
-}
+    for (int i=0; i<n-1; i++)
+        a.insert("" + s[i] + s[i+1]);
 
-int32_t main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    // freopen ("inp.txt", "r", stdin);
-    // freopen ("out.txt", "w", stdout);
-
-    int t = 1;
-    cin >> t;
-
-    for (int tt = 1; tt <= t; tt++)
-    {
-        // cout << "Case " << tt << ": ";
-        solveit();
-    }
+    for (string p:a)
+        cout << p << " ";
+    cout << endl;
 }

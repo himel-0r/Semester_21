@@ -20,6 +20,17 @@ public:
     }
 };
 
+class BinomialHeap
+{
+public:
+    BinomialNode* head;
+
+    BinomialHeap()
+    {
+        this->head = nullptr;
+    }
+};
+
 BinomialNode* merge_tree(BinomialNode* heap1, BinomialNode* heap2)
 {
     if (heap1->value > heap2->value)
@@ -128,3 +139,8 @@ BinomialNode* insert_node(BinomialNode* heap, int x)
     return merge_heaps(heap, newNode);
 }
 
+int main()
+{
+    BinomialNode* a = new BinomialNode(3);
+
+}
