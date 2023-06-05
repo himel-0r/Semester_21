@@ -158,7 +158,7 @@ void rad_sort(vi a)
     start_time = high_resolution_clock::now();
     for (int exp = 1; m / exp > 1; exp *= 10)
     {
-        a = selection_sort (a, exp);
+        a = selection_sort(a, exp);
     }
     stop_time = high_resolution_clock::now();
     duration = duration_cast<microseconds>(stop_time - start_time);
@@ -172,7 +172,7 @@ void rad_sort(vi a)
     start_time = high_resolution_clock::now();
     for (int exp = 1; m / exp > 1; exp *= 10)
     {
-        a = mergesort (a, exp);
+        a = mergesort(a, exp);
     }
     stop_time = high_resolution_clock::now();
     duration = duration_cast<microseconds>(stop_time - start_time);
@@ -181,7 +181,7 @@ void rad_sort(vi a)
     start_time = high_resolution_clock::now();
     for (int exp = 1; m / exp > 1; exp *= 10)
     {
-        a = quicksort (a, 0, n-1, exp);
+        a = quicksort(a, 0, n - 1, exp);
     }
     stop_time = high_resolution_clock::now();
     duration = duration_cast<microseconds>(stop_time - start_time);

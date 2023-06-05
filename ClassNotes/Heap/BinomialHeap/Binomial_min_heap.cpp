@@ -77,7 +77,7 @@ class BinomialHeap
         while (node)
         {
             int deg = node->degree;;
-            while 
+            // while 
         }
     }
-}
+};

@@ -77,6 +77,9 @@ void QueueLL::enqueue(int num)
     {
         this->start = newNode;
         this->end = newNode;
+
+        this->count += 1;
+        return;
     }
 
     this->end->next = newNode;
