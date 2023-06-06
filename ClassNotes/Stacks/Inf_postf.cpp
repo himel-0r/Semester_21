@@ -4,9 +4,10 @@ using namespace std;
 int main()
 {
     // freopen ("input.txt", "r", stdin);
-    freopen ("in_post.txt", "w", stdout);
+    // freopen ("in_post.txt", "w", stdout);
 
     string s = "(((1+2)*3)-8)";
+    cin >> s;
     string t = "";
 
     stack<char> st;
