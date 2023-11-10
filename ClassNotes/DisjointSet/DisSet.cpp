@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 class DisjointSet
@@ -10,20 +10,20 @@ private:
 public:
     DisjointSet(int n)
     {
-        rank = new int[n+1];
-        parent = new int[n+1];
+        rank = new int[n + 1];
+        parent = new int[n + 1];
         this->n = n;
         makeset();
     }
 
     void makeset()
     {
-        for (int i=0; i<=n; i++)
+        for (int i = 0; i <= n; i++)
             parent[i] = i;
     }
 
     // Find function with path compression
-    int find (int x)
+    int find(int x)
     {
         if (parent[x] != x)
         {
@@ -33,14 +33,14 @@ public:
     }
 
     // Union by rank
-    void unite (int x, int y)
+    void unite(int x, int y)
     {
         int xpar = find(x);
         int ypar = find(y);
 
         if (xpar == ypar)
             return;
-        
+
         if (rank[xpar] < rank[ypar])
             parent[xpar] = ypar;
         else if (rank[xpar] > rank[ypar])
@@ -58,6 +58,6 @@ int main()
     DisjointSet dis(10);
 
     dis.unite(2, 9);
-    // Ekhane aaro onek kichu likha jabe. 
+    // Ekhane aaro onek kichu likha jabe.
     // :)
 }
